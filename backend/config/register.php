@@ -1,16 +1,42 @@
 <?php
-include 'db_connect.php'; // Include your connection file
+include 'db_connect.php';
 
-// Get data from the request
-$username = $_POST['username'];
-$password = password_hash($_POST['password'], PASSWORD_DEFAULT); // ALWAYS hash passwords!
+$data = json_decode(file_get_contents("php://input"), true);
+$username = isset($data['username']) ? trim($data['username']) : '';
+$password = isset($data['password']) ? $data['password'] : '';
 
-// Insert into database
-$sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+if (empty($username) || empty($password)) {
+    echo json_encode(["status" => "error", "message" => "Username and password are required"]);
+    exit();
+}
 
-if ($conn->query($sql) === TRUE) {
+if (strlen($password) < 6) {
+    echo json_encode(["status" => "error", "message" => "Password must be at least 6 characters"]);
+    exit();
+}
+
+$check = $conn->prepare("SELECT id FROM users WHERE username = ?");
+$check->bind_param("s", $username);
+$check->execute();
+$check->store_result();
+
+if ($check->num_rows > 0) {
+    echo json_encode(["status" => "error", "message" => "Username already taken"]);
+    $check->close();
+    exit();
+}
+$check->close();
+
+$hashed = password_hash($password, PASSWORD_DEFAULT);
+$stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+$stmt->bind_param("ss", $username, $hashed);
+
+if ($stmt->execute()) {
     echo json_encode(["status" => "success", "message" => "Registration successful"]);
 } else {
-    echo json_encode(["status" => "error", "message" => "Error: " . $conn->error]);
+    echo json_encode(["status" => "error", "message" => "Registration failed"]);
 }
+
+$stmt->close();
+$conn->close();
 ?>

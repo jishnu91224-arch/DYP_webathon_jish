@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage Bureau</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f0eb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .hero {
+            max-width: 520px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+        }
+
+        .logo span {
+            color: #c8a97e;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #6b7280;
+            margin-bottom: 48px;
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 13px 36px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: #c8a97e;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #b8936a;
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #1a1a2e;
+            border: 1.5px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            background: #f9f5f1;
+            border-color: #c8a97e;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="logo">Marriage <span>Bureau</span></div>
+        <p class="tagline">Find your perfect match. Create an account or login to get started.</p>
+        <div class="actions">
+            <a href="register.html" class="btn btn-primary">Get Started</a>
+            <a href="login.html" class="btn btn-secondary">Login</a>
+        </div>
+    </div>
+</body>
+</html>
